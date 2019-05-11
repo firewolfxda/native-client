@@ -127,6 +127,19 @@ function chromium(callback) {
     callback();
   }
 }
+function chromebeta(callback) {
+  if (ids.chrome.length) {
+    const loc = path.join(
+      process.env.HOME,
+      '.config/google-chrome-beta/NativeMessagingHosts'
+    );
+    manifest(loc, 'chrome', callback);
+    console.error(' -> Cherome Beta Browser is supported');
+  }
+  else {
+    callback();
+  }
+}
 function vivaldi(callback) {
   if (ids.chrome.length) {
     const loc = path.join(
@@ -153,9 +166,9 @@ function firefox(callback) {
     callback();
   }
 }
-chrome(() => chromium(() => vivaldi(() => firefox(() => {
+chrome(() => chromebeta(() => chromium(() => vivaldi(() => firefox(() => {
   application(() => {
     console.error(' => Native Host is installed in', dir);
     console.error('\n\n>>> Application is ready to use <<<\n\n');
   });
-}))));
+})))));
